@@ -96,21 +96,21 @@ function createSuggestion(fruit) {
 }
 
 function clearSearchList() {
-	while (suggestions.firstChild) {
-		suggestions.removeChild(suggestions.firstChild);
-	}
+	suggestions.innerHTML = "";
 }
 
 function searchHandler(evt) {
 	clearSearchList();
 
-	if (input.value) {
-		const filteredFruit = search(evt.target.value);
+	if (!input.value) { return; }
 
-		filteredFruit.forEach((val) => {
-			suggestions.append(createSuggestion(val));
-		});
-	}
+	const filteredFruit = search(evt.target.value);
+
+	const items = filteredFruit.map(val => {
+		return createSuggestion(val);
+	});
+
+	suggestions.append(...items);
 }
 
 function useSuggestion(e) {

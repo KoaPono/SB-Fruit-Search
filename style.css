@@ -43,6 +43,7 @@ ul li {
 
 ul li:hover {
 	background-color: orangered;
+	cursor: pointer;
 }
 
 input {

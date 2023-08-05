@@ -84,7 +84,21 @@ const fruit = [
 ];
 
 function search(str) {
-	return fruit.filter((fruit) => fruit.toLowerCase().includes(str.toLowerCase()));
+	return fruit.filter((fruit) =>
+		fruit.toLowerCase().includes(str.toLowerCase())
+	);
+}
+
+function createSuggestion(fruit) {
+	const fruitListItem = document.createElement("li");
+	fruitListItem.innerText = fruit;
+	return fruitListItem;
+}
+
+function clearSearchList() {
+	while (suggestions.firstChild) {
+		suggestions.removeChild(suggestions.firstChild);
+	}
 }
 
 function searchHandler(evt) {
@@ -97,28 +111,12 @@ function searchHandler(evt) {
 			suggestions.append(createSuggestion(val));
 		});
 	}
-
-	function createSuggestion(fruit) {
-		const fruitListItem = document.createElement("li");
-		fruitListItem.innerText = fruit;
-		return fruitListItem;
-	}
-}
-
-function clearSearchList() {
-	while (suggestions.firstChild && suggestions.firstChild !== null) {
-		suggestions.removeChild(suggestions.firstChild);
-	}
 }
 
 function useSuggestion(e) {
-	input.value = e.target.innerText;
-	clearSearchList();
-}
-
-function clearSearchList() {
-	while (suggestions.firstChild && suggestions.firstChild !== null) {
-		suggestions.removeChild(suggestions.firstChild);
+	if (e.target.nodeName === "LI") {
+		input.value = e.target.innerText;
+		clearSearchList();
 	}
 }
 
